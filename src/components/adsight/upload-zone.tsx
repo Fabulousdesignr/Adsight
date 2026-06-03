@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useCallback } from "react"
-import { Upload, X } from "lucide-react"
+import { Upload, X, ImagePlus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -57,62 +57,67 @@ export function UploadZone({ onFileSelect, onClear, selectedFile }: UploadZonePr
   }
 
   return (
-    <div
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-      onClick={() => !selectedFile && document.getElementById("ad-upload")?.click()}
-      className={cn(
-        "relative w-full aspect-[2/1] min-h-[400px] flex flex-col items-center justify-center rounded-2xl border transition-all duration-500",
-        isDragging 
-          ? "border-[#3b82f6] bg-[#3b82f6]/5 scale-[1.01]" 
-          : "border-[#3b82f6]/30 bg-[#080810]/60",
-        "shadow-[0_0_80px_rgba(59,130,246,0.1)]",
-        !selectedFile && "cursor-pointer hover:border-[#3b82f6]/60"
-      )}
-    >
-      <input
-        type="file"
-        id="ad-upload"
-        className="hidden"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
+    <div className="relative group max-w-4xl mx-auto">
+      {/* Intense Blue Outer Glow */}
+      <div className="absolute -inset-1.5 bg-[#3b82f6]/30 blur-2xl rounded-[2rem] opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       
-      {selectedFile && preview ? (
-        <div className="relative w-full h-full p-4 group">
-          <img src={preview} alt="Preview" className="w-full h-full object-contain rounded-lg" />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-2xl">
-            <Button variant="destructive" size="icon" onClick={clear} className="rounded-full">
-              <X className="h-5 w-5" />
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={() => !selectedFile && document.getElementById("ad-upload")?.click()}
+        className={cn(
+          "relative w-full min-h-[440px] flex flex-col items-center justify-center rounded-2xl border transition-all duration-500",
+          isDragging 
+            ? "border-[#3b82f6] bg-[#3b82f6]/5 scale-[1.005]" 
+            : "border-white/10 bg-[#0c0c14]",
+          !selectedFile && "cursor-pointer hover:border-white/20"
+        )}
+      >
+        <input
+          type="file"
+          id="ad-upload"
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+        
+        {selectedFile && preview ? (
+          <div className="relative w-full h-full p-6 group/preview">
+            <img src={preview} alt="Preview" className="w-full max-h-[400px] object-contain rounded-lg" />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity flex items-center justify-center rounded-2xl">
+              <Button variant="destructive" size="icon" onClick={clear} className="rounded-full h-12 w-12">
+                <X className="h-6 w-6" />
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="text-center p-12">
+            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-10">
+               <ImagePlus className="w-8 h-8 text-white/40" />
+            </div>
+            
+            <h3 className="font-headline text-2xl font-bold mb-4 tracking-tight">Upload Advertisement</h3>
+            <p className="text-muted-foreground text-base max-w-sm mx-auto mb-12 leading-relaxed opacity-80">
+              Upload a social media ad, flyer, poster, or marketing creative for AI analysis.
+            </p>
+            
+            <Button 
+              className="bg-white text-black hover:bg-white/90 px-10 h-12 rounded-md font-bold text-xs uppercase tracking-[0.15em] shadow-xl mb-8"
+              onClick={(e) => {
+                e.stopPropagation();
+                document.getElementById("ad-upload")?.click();
+              }}
+            >
+              Choose File
             </Button>
+            
+            <p className="text-[11px] text-muted-foreground/40 uppercase tracking-[0.2em] font-medium">
+              Supported formats: JPG, PNG, Screenshots
+            </p>
           </div>
-        </div>
-      ) : (
-        <div className="text-center p-12">
-          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-8 shadow-inner">
-             <div className="w-6 h-6 border-2 border-[#3b82f6]/60 rounded-sm relative">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#3b82f6]" />
-             </div>
-          </div>
-          
-          <h3 className="font-headline text-2xl font-bold mb-3 tracking-tight">Upload Advertisement</h3>
-          <p className="text-muted-foreground text-sm max-w-sm mx-auto mb-10 leading-relaxed">
-            Upload a social media ad, flyer, poster, or marketing creative for AI analysis.
-          </p>
-          
-          <Button 
-            className="bg-white text-black hover:bg-gray-100 px-8 h-11 rounded-md font-bold text-xs uppercase tracking-widest shadow-lg mb-6"
-            onClick={() => document.getElementById("ad-upload")?.click()}
-          >
-            Choose File
-          </Button>
-          
-          <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest">
-            Supported formats: JPG, PNG, Screenshots
-          </p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
