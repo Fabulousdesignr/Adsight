@@ -9,7 +9,7 @@ import { Footer } from "@/components/adsight/footer"
 import { analyzeAdCreative, AnalyzeAdCreativeOutput } from "@/ai/flows/analyze-ad-creative"
 import { Toaster } from "@/components/ui/toaster"
 import { Button } from "@/components/ui/button"
-import { Zap, Target, MessageSquare, CheckCircle2 } from "lucide-react"
+import { Zap, Target, MessageSquare, CheckCircle2, Users, Lightbulb } from "lucide-react"
 
 type AppState = "landing" | "processing" | "results"
 
@@ -79,13 +79,14 @@ export default function AdSightApp() {
           <nav className="hidden md:flex items-center gap-10">
             <a href="#" className="nav-link">Platform</a>
             <a href="#" className="nav-link">Solutions</a>
-            <a href="#" className="nav-link">Enterprise</a>
-            <a href="#" className="nav-link">Pricing</a>
+            <a href="#" className="nav-link">Resources</a>
           </nav>
           
-          <Button size="sm" className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 rounded-md font-medium text-xs uppercase tracking-wider h-9">
-            Get Started
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button size="sm" className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 rounded-md font-medium text-xs uppercase tracking-wider h-9">
+              Get Started
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -100,7 +101,7 @@ export default function AdSightApp() {
             />
             <HowItWorks />
             
-            {/* AI-Powered Creative Analysis Section with Mock Results */}
+            {/* AI-Powered Creative Analysis Section - Visual Specification Match */}
             <section className="py-32 container mx-auto px-6">
               <div className="mb-16">
                 <h2 className="text-3xl font-headline font-bold mb-4">AI-Powered Creative Analysis</h2>
@@ -108,88 +109,95 @@ export default function AdSightApp() {
                   AdSight breaks down how your advertisement communicates and what may influence engagement.
                 </p>
               </div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6">
-                  <div className="p-8 rounded-2xl border border-white/10 bg-[#0c0c14] relative group hover:border-[#3b82f6]/30 transition-all">
-                    <div className="absolute top-8 left-8 h-10 w-10 rounded-lg bg-[#3b82f6]/10 flex items-center justify-center mb-6">
-                      <MessageSquare className="h-5 w-5 text-[#3b82f6]" />
+
+              {/* Large Featured Advertisement Preview */}
+              <div className="relative mb-12 group">
+                <div className="absolute -inset-4 bg-[#3b82f6]/10 blur-3xl opacity-30 rounded-full" />
+                <div className="relative border border-white/10 rounded-2xl overflow-hidden bg-[#0c0c14] shadow-2xl">
+                  {/* Browser Header */}
+                  <div className="bg-[#12121a] h-12 flex items-center px-6 gap-2 border-b border-white/5">
+                    <div className="flex gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
                     </div>
-                    <div className="pl-16">
-                      <h3 className="text-lg font-headline font-bold mb-2">Messaging Integrity</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">AI analyzes copy for clarity, tone consistency, and persuasive impact relative to industry benchmarks.</p>
+                    <div className="ml-auto text-[10px] text-white/20 uppercase tracking-[0.2em] font-mono">CREATIVE_AUDIT_LOG_V2.ADS</div>
+                  </div>
+                  
+                  {/* Image with Overlays */}
+                  <div className="relative aspect-[16/7] w-full overflow-hidden">
+                    <img 
+                      src="https://picsum.photos/seed/skincare-ad/1200/525" 
+                      alt="Skincare Ad Preview" 
+                      className="w-full h-full object-cover"
+                      data-ai-hint="skincare advertisement"
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+                    
+                    {/* Floating Overlay Cards */}
+                    <div className="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row gap-6">
+                      <div className="flex-1 glass-card bg-black/60 backdrop-blur-md p-6 rounded-xl border-l-4 border-l-[#3b82f6] border-white/5">
+                        <p className="text-[10px] text-[#3b82f6] font-bold uppercase tracking-widest mb-1">Key Messaging</p>
+                        <h4 className="text-white font-bold text-base mb-1">High Clarity Detected</h4>
+                        <p className="text-white/60 text-xs leading-relaxed">Core value proposition is visible in less than 0.5 seconds.</p>
+                      </div>
+                      
+                      <div className="flex-1 glass-card bg-black/60 backdrop-blur-md p-6 rounded-xl border-l-4 border-l-white/20 border-white/5">
+                        <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-1">Visual Flow</p>
+                        <h4 className="text-white font-bold text-base mb-1">Optimal Hierarchy</h4>
+                        <p className="text-white/60 text-xs leading-relaxed">The advertisement follows a clear visual reading path and directs attention effectively.</p>
+                      </div>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <div className="p-8 rounded-2xl border border-white/10 bg-[#0c0c14] relative group hover:border-[#3b82f6]/30 transition-all">
-                    <div className="absolute top-8 left-8 h-10 w-10 rounded-lg bg-[#3b82f6]/10 flex items-center justify-center mb-6">
-                      <Target className="h-5 w-5 text-[#3b82f6]" />
-                    </div>
-                    <div className="pl-16">
-                      <h3 className="text-lg font-headline font-bold mb-2">Audience Signal Detection</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">Identifies visual cues and keywords that resonate with specific demographic segments and interests.</p>
-                    </div>
-                  </div>
-
-                  <div className="p-8 rounded-2xl border border-white/10 bg-[#0c0c14] relative group hover:border-[#3b82f6]/30 transition-all">
-                    <div className="absolute top-8 left-8 h-10 w-10 rounded-lg bg-[#3b82f6]/10 flex items-center justify-center mb-6">
-                      <CheckCircle2 className="h-5 w-5 text-[#3b82f6]" />
-                    </div>
-                    <div className="pl-16">
-                      <h3 className="text-lg font-headline font-bold mb-2">Visual Hierarchy Audit</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">Evaluates the flow of visual information to ensure primary call-to-actions are noticed first.</p>
+              {/* Analysis Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-8 rounded-xl border border-white/5 bg-[#0c0c14] border-l-4 border-l-[#3b82f6]">
+                  <div className="flex items-start gap-4">
+                    <MessageSquare className="h-5 w-5 text-[#3b82f6] shrink-0 mt-1" />
+                    <div>
+                      <h3 className="text-lg font-headline font-bold mb-3">What This Ad Is Saying</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        This ad promotes a luxury skincare product focused on confidence and premium quality.
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-[#3b82f6]/20 blur-3xl opacity-30 rounded-full" />
-                  <div className="relative border border-white/10 rounded-2xl overflow-hidden glass-card shadow-2xl">
-                    <div className="bg-[#12121a] h-10 flex items-center px-5 gap-2 border-b border-white/5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                      <div className="ml-auto text-[9px] text-white/20 uppercase tracking-[0.2em] font-mono">INTELLIGENCE_REPORT_V4</div>
+                <div className="p-8 rounded-xl border border-white/5 bg-[#0c0c14] border-l-4 border-l-[#22c55e]">
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2 className="h-5 w-5 text-[#22c55e] shrink-0 mt-1" />
+                    <div>
+                      <h3 className="text-lg font-headline font-bold mb-3">What Works Well</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Strong headline and clean imagery make the product feel premium and trustworthy.
+                      </p>
                     </div>
-                    <div className="p-8 space-y-8">
-                       <div className="flex items-center justify-between border-b border-white/5 pb-6">
-                          <div>
-                             <p className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Analysis Score</p>
-                             <h4 className="text-3xl font-headline font-bold text-white">88<span className="text-sm text-muted-foreground">/100</span></h4>
-                          </div>
-                          <div className="h-14 w-14 rounded-full border-4 border-[#3b82f6] border-t-white/10 flex items-center justify-center font-bold text-sm">
-                             A-
-                          </div>
-                       </div>
-                       
-                       <div className="space-y-4">
-                          <div className="flex justify-between text-xs">
-                             <span className="text-muted-foreground">Clarity</span>
-                             <span className="text-white">92%</span>
-                          </div>
-                          <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                             <div className="h-full bg-[#3b82f6] w-[92%]" />
-                          </div>
-                          
-                          <div className="flex justify-between text-xs">
-                             <span className="text-muted-foreground">Engagement Factor</span>
-                             <span className="text-white">74%</span>
-                          </div>
-                          <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                             <div className="h-full bg-[#3b82f6] w-[74%]" />
-                          </div>
-                       </div>
+                  </div>
+                </div>
 
-                       <div className="pt-4">
-                          <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                             <h5 className="text-[10px] text-primary uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
-                                <Zap className="h-3 w-3" /> Key Recommendation
-                             </h5>
-                             <p className="text-xs text-white/70 leading-relaxed italic">
-                                "Increase visual contrast on the CTA button to improve click-through propensity for mobile users."
-                             </p>
-                          </div>
-                       </div>
+                <div className="p-8 rounded-xl border border-white/5 bg-[#0c0c14] border-l-4 border-l-[#3b82f6]">
+                  <div className="flex items-start gap-4">
+                    <Users className="h-5 w-5 text-[#3b82f6] shrink-0 mt-1" />
+                    <div>
+                      <h3 className="text-lg font-headline font-bold mb-3">Who It May Appeal To</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Likely appeals to women interested in beauty, skincare, and premium self-care products.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-8 rounded-xl border border-white/5 bg-[#0c0c14] border-l-4 border-l-white/10">
+                  <div className="flex items-start gap-4">
+                    <Lightbulb className="h-5 w-5 text-muted-foreground shrink-0 mt-1" />
+                    <div>
+                      <h3 className="text-lg font-headline font-bold mb-3">What Could Improve</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        The call-to-action could be clearer and the text may feel slightly crowded on mobile.
+                      </p>
                     </div>
                   </div>
                 </div>

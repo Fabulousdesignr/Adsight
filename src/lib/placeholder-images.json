@@ -17,6 +17,12 @@
       "description": "Creative designer working on layouts",
       "imageUrl": "https://picsum.photos/seed/adsight-2/800/600",
       "imageHint": "graphic design"
+    },
+    {
+      "id": "skincare-ad",
+      "description": "Premium luxury skincare advertisement preview",
+      "imageUrl": "https://picsum.photos/seed/skincare-ad/1200/525",
+      "imageHint": "skincare advertisement"
     }
   ]
 }
