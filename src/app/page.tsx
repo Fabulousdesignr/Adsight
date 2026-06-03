@@ -83,7 +83,6 @@ export default function AdSightApp() {
             <a href="#" className="hover:text-primary transition-colors">Success Stories</a>
           </nav>
           <div className="flex items-center gap-4">
-             <button className="text-sm font-medium text-muted-foreground hover:text-white transition-colors">Login</button>
              <button className="h-10 px-5 rounded-full bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all">Get Started</button>
           </div>
         </div>
