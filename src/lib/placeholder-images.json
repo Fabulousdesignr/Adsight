@@ -1,3 +1,22 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Abstract purple and blue gradient background",
+      "imageUrl": "https://picsum.photos/seed/adsight-hero/1920/1080",
+      "imageHint": "abstract gradient"
+    },
+    {
+      "id": "feature-1",
+      "description": "Marketing professional analyzing data",
+      "imageUrl": "https://picsum.photos/seed/adsight-1/800/600",
+      "imageHint": "marketing analysis"
+    },
+    {
+      "id": "feature-2",
+      "description": "Creative designer working on layouts",
+      "imageUrl": "https://picsum.photos/seed/adsight-2/800/600",
+      "imageHint": "graphic design"
+    }
+  ]
 }

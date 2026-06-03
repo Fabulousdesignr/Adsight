@@ -1,4 +1,5 @@
-import type {Config} from 'tailwindcss';
+
+import type {Config} from 'tailwind-merge';
 
 export default {
   darkMode: ['class'],
@@ -11,7 +12,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['Poppins', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -87,11 +88,17 @@ export default {
           to: {
             height: '0',
           },
+          
         },
+        'pulse-glow': {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.1)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
       },
     },
   },
