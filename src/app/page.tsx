@@ -9,7 +9,7 @@ import { Footer } from "@/components/adsight/footer"
 import { analyzeAdCreative, AnalyzeAdCreativeOutput } from "@/ai/flows/analyze-ad-creative"
 import { Toaster } from "@/components/ui/toaster"
 import { Button } from "@/components/ui/button"
-import { Zap, Target, MessageSquare, CheckCircle2, Users, Lightbulb } from "lucide-react"
+import { MessageSquare, CheckCircle2, Users, Lightbulb } from "lucide-react"
 
 type AppState = "landing" | "processing" | "results"
 
@@ -101,7 +101,6 @@ export default function AdSightApp() {
             />
             <HowItWorks />
             
-            {/* AI-Powered Creative Analysis Section - Visual Specification Match */}
             <section className="py-32 container mx-auto px-6">
               <div className="mb-16">
                 <h2 className="text-3xl font-headline font-bold mb-4">AI-Powered Creative Analysis</h2>
@@ -110,11 +109,9 @@ export default function AdSightApp() {
                 </p>
               </div>
 
-              {/* Large Featured Advertisement Preview */}
               <div className="relative mb-12 group">
                 <div className="absolute -inset-4 bg-[#3b82f6]/10 blur-3xl opacity-30 rounded-full" />
                 <div className="relative border border-white/10 rounded-2xl overflow-hidden bg-[#0c0c14] shadow-2xl">
-                  {/* Browser Header */}
                   <div className="bg-[#12121a] h-12 flex items-center px-6 gap-2 border-b border-white/5">
                     <div className="flex gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
@@ -124,7 +121,6 @@ export default function AdSightApp() {
                     <div className="ml-auto text-[10px] text-white/20 uppercase tracking-[0.2em] font-mono">CREATIVE_AUDIT_LOG_V2.ADS</div>
                   </div>
                   
-                  {/* Image with Overlays */}
                   <div className="relative aspect-[16/7] w-full overflow-hidden">
                     <img 
                       src="https://picsum.photos/seed/skincare-ad/1200/525" 
@@ -134,7 +130,6 @@ export default function AdSightApp() {
                     />
                     <div className="absolute inset-0 bg-black/40" />
                     
-                    {/* Floating Overlay Cards */}
                     <div className="absolute bottom-8 left-8 right-8 flex flex-col md:flex-row gap-6">
                       <div className="flex-1 glass-card bg-black/60 backdrop-blur-md p-6 rounded-xl border-l-4 border-l-[#3b82f6] border-white/5">
                         <p className="text-[10px] text-[#3b82f6] font-bold uppercase tracking-widest mb-1">Key Messaging</p>
@@ -152,7 +147,6 @@ export default function AdSightApp() {
                 </div>
               </div>
 
-              {/* Analysis Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-8 rounded-xl border border-white/5 bg-[#0c0c14] border-l-4 border-l-[#3b82f6]">
                   <div className="flex items-start gap-4">
@@ -204,7 +198,6 @@ export default function AdSightApp() {
               </div>
             </section>
 
-            {/* Final CTA */}
             <section className="py-32 text-center relative overflow-hidden">
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] glow-blue opacity-40 pointer-events-none" />
                <div className="container relative z-10 mx-auto px-6">
@@ -226,9 +219,7 @@ export default function AdSightApp() {
         )}
 
         {state === "processing" && (
-          <div className="pt-32">
-            <ProcessingView />
-          </div>
+          <ProcessingView imageUrl={previewUrl} />
         )}
 
         {state === "results" && analysis && (

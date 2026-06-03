@@ -1,17 +1,20 @@
-
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Loader2, Zap, Target, Layers, MousePointer2 } from "lucide-react"
+import { Brain } from "lucide-react"
+
+interface ProcessingViewProps {
+  imageUrl: string
+}
 
 const MESSAGES = [
-  { text: "Reviewing messaging clarity", icon: Zap },
-  { text: "Detecting audience signals", icon: Target },
-  { text: "Evaluating visual hierarchy", icon: Layers },
-  { text: "Analyzing call-to-action effectiveness", icon: MousePointer2 }
+  "Reviewing messaging clarity",
+  "Detecting audience signals",
+  "Evaluating visual hierarchy",
+  "Analyzing call-to-action effectiveness"
 ]
 
-export function ProcessingView() {
+export function ProcessingView({ imageUrl }: ProcessingViewProps) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -21,43 +24,82 @@ export function ProcessingView() {
     return () => clearInterval(interval)
   }, [])
 
-  const ActiveIcon = MESSAGES[index].icon
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-      <div className="relative mb-12">
-        {/* Pulse Glows */}
-        <div className="absolute inset-0 glow-indigo animate-pulse-glow" />
-        <div className="absolute inset-0 glow-purple animate-pulse-glow delay-700" />
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-32 pb-20">
+      {/* Atmospheric Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[700px] glow-blue opacity-20 pointer-events-none" />
+
+      <div className="container relative z-10 px-6 mx-auto text-center flex flex-col items-center">
+        {/* Badge */}
+        <div className="inline-flex items-center px-4 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-8">
+          AI Creative Review
+        </div>
         
-        <div className="relative z-10 p-12 glass-card rounded-full border-primary/20 bg-primary/5 flex items-center justify-center">
-          <div className="relative h-24 w-24">
-            <Loader2 className="h-24 w-24 text-primary animate-spin" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <ActiveIcon className="h-10 w-10 text-secondary transition-all duration-500 animate-pulse" />
+        {/* Heading */}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold mb-6 tracking-tight max-w-4xl mx-auto">
+          Analyzing Your Advertisement
+        </h1>
+        
+        {/* Subtitle */}
+        <p className="text-muted-foreground max-w-xl mx-auto mb-16 text-sm md:text-base leading-relaxed opacity-70">
+          AdSight is reviewing your creative and identifying marketing insights using our proprietary intelligence engine.
+        </p>
+
+        {/* Analysis Frame */}
+        <div className="relative mb-12 w-full max-w-2xl">
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#3b82f6]/20 to-transparent blur-xl rounded-2xl opacity-50" />
+          <div className="relative rounded-2xl border border-white/10 bg-[#0c0c14] p-3 shadow-2xl overflow-hidden aspect-video flex items-center justify-center">
+            {/* Ad Preview with darkened overlay */}
+            <img 
+              src={imageUrl} 
+              alt="Ad Analysis Preview" 
+              className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale-[50%]" 
+            />
+            <div className="absolute inset-0 bg-[#040408]/60" />
+            
+            {/* Scanning Line Animation */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="w-full h-0.5 bg-primary/40 shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-[scan_3s_ease-in-out_infinite] absolute top-0" />
             </div>
+
+            {/* AI Brain Icon */}
+            <div className="relative z-10 w-20 h-20 rounded-2xl bg-[#12121a] border border-white/10 shadow-2xl flex items-center justify-center">
+              <Brain className="w-10 h-10 text-primary animate-pulse" />
+            </div>
+          </div>
+        </div>
+
+        {/* Rotating Message */}
+        <div className="mb-12 h-8 flex items-center justify-center">
+          <h2 className="text-xl font-headline font-medium text-white tracking-tight animate-in fade-in slide-in-from-bottom-2 duration-500" key={index}>
+            {MESSAGES[index]}
+          </h2>
+        </div>
+
+        {/* Progress Footer */}
+        <div className="space-y-6 w-full max-w-xs">
+          <p className="text-[11px] text-muted-foreground/60 uppercase tracking-widest font-medium">
+            This usually takes a few seconds.
+          </p>
+          <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+            <div className="h-full bg-primary w-1/3 rounded-full animate-[loading-progress_2s_ease-in-out_infinite]" />
           </div>
         </div>
       </div>
 
-      <div className="space-y-4 max-w-md mx-auto">
-        <h2 className="text-3xl font-headline font-bold text-gradient h-12">
-          {MESSAGES[index].text}
-        </h2>
-        <div className="flex gap-2 justify-center">
-          {MESSAGES.map((_, i) => (
-            <div
-              key={i}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === index ? "w-8 bg-primary" : "w-1.5 bg-white/10"
-              }`}
-            />
-          ))}
-        </div>
-        <p className="text-muted-foreground text-sm uppercase tracking-widest pt-4">
-          GenAI Creative Auditor Active
-        </p>
-      </div>
+      <style jsx global>{`
+        @keyframes scan {
+          0% { top: 0%; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
+        }
+        @keyframes loading-progress {
+          0% { transform: translateX(-100%); width: 30%; }
+          50% { width: 60%; }
+          100% { transform: translateX(333%); width: 30%; }
+        }
+      `}</style>
     </div>
   )
 }
