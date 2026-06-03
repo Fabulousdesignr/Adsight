@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useCallback } from "react"
@@ -9,7 +8,7 @@ import { ResultsView } from "@/components/adsight/results-view"
 import { Footer } from "@/components/adsight/footer"
 import { analyzeAdCreative, AnalyzeAdCreativeOutput } from "@/ai/flows/analyze-ad-creative"
 import { Toaster } from "@/components/ui/toaster"
-import { Zap } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 type AppState = "landing" | "processing" | "results"
 
@@ -36,7 +35,6 @@ export default function AdSightApp() {
     setState("processing")
     
     try {
-      // Convert file to base64 data URI
       const reader = new FileReader()
       reader.onloadend = async () => {
         const base64String = reader.result as string
@@ -48,7 +46,6 @@ export default function AdSightApp() {
         } catch (error) {
           console.error("Analysis failed:", error)
           setState("landing")
-          // In a real app we'd show a toast error
         }
       }
       reader.readAsDataURL(selectedFile)
@@ -67,28 +64,31 @@ export default function AdSightApp() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
-      {/* Header / Nav */}
-      <header className="fixed top-0 w-full z-50 bg-background/50 backdrop-blur-lg border-b border-white/5">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-headline font-bold text-xl cursor-pointer" onClick={handleReset}>
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <Zap className="text-white h-5 w-5 fill-white" />
+    <div className="min-h-screen bg-[#040408] text-foreground font-body">
+      {/* Navigation */}
+      <header className="fixed top-0 w-full z-50 bg-[#040408]/80 backdrop-blur-md">
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={handleReset}>
+            <div className="h-6 w-6 bg-[#3b82f6] rounded flex items-center justify-center">
+              <div className="w-3 h-3 border-2 border-white rotate-45" />
             </div>
-            <span>AdSight</span>
+            <span className="font-headline font-bold text-xl tracking-tight">AdSight</span>
           </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground uppercase tracking-widest">
-            <a href="#" className="hover:text-primary transition-colors">Pricing</a>
-            <a href="#" className="hover:text-primary transition-colors">API</a>
-            <a href="#" className="hover:text-primary transition-colors">Success Stories</a>
+          
+          <nav className="hidden md:flex items-center gap-10">
+            <a href="#" className="nav-link">Platform</a>
+            <a href="#" className="nav-link">Solutions</a>
+            <a href="#" className="nav-link">Enterprise</a>
+            <a href="#" className="nav-link">Pricing</a>
           </nav>
-          <div className="flex items-center gap-4">
-             <button className="h-10 px-5 rounded-full bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all">Get Started</button>
-          </div>
+          
+          <Button size="sm" className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 rounded-md font-medium text-xs uppercase tracking-wider h-9">
+            Get Started
+          </Button>
         </div>
       </header>
 
-      <main className="container mx-auto px-4">
+      <main>
         {state === "landing" && (
           <>
             <LandingHero 
@@ -99,63 +99,63 @@ export default function AdSightApp() {
             />
             <HowItWorks />
             
-            {/* Feature Tease */}
-            <section className="py-24 relative overflow-hidden">
-               <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 glow-indigo opacity-30" />
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                  <div>
-                    <h2 className="text-4xl md:text-5xl font-headline font-bold mb-6">AI-Powered Creative Analysis</h2>
-                    <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                      Stop guessing. Our vision models are trained on millions of high-performing assets 
-                      to provide objective feedback on contrast, messaging density, and audience resonance.
-                    </p>
-                    <ul className="space-y-4">
-                      {["Visual Hierarchy Detection", "Messaging Clarity Audit", "Call-to-Action Efficiency", "Target Audience Alignment"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-3">
-                          <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center">
-                            <Zap className="h-3 w-3 text-primary" />
-                          </div>
-                          <span className="font-medium">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="relative">
-                     <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl blur-2xl opacity-50" />
-                     <img 
-                       src="https://picsum.photos/seed/adsight-ui/800/600" 
-                       alt="AI Analysis Interface" 
-                       className="relative z-10 rounded-3xl border border-white/10 shadow-2xl glass-card"
-                       data-ai-hint="dashboard interface"
-                     />
-                  </div>
-               </div>
+            {/* AI-Powered Creative Analysis Teaser */}
+            <section className="py-32 container mx-auto px-6">
+              <div className="mb-12">
+                <h2 className="text-3xl font-headline font-bold mb-4">AI-Powered Creative Analysis</h2>
+                <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed">
+                  AdSight breaks down how your advertisement communicates and what may influence engagement.
+                </p>
+              </div>
+              
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#3b82f6]/20 to-transparent blur-2xl opacity-50" />
+                <div className="relative border border-white/5 rounded-xl overflow-hidden glass-card">
+                   <div className="bg-[#12121a] h-8 flex items-center px-4 gap-1.5 border-b border-white/5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="ml-auto text-[10px] text-white/20 uppercase tracking-widest font-mono">CREATIVE_ANALYSIS_V2.ADS</div>
+                   </div>
+                   <img 
+                    src="https://picsum.photos/seed/adsight-preview/1200/600" 
+                    alt="AI Analysis Preview" 
+                    className="w-full opacity-80"
+                    data-ai-hint="analysis dashboard"
+                   />
+                </div>
+              </div>
             </section>
 
-            {/* Premium CTA */}
-            <section className="py-32">
-               <div className="glass-card rounded-[3rem] p-12 md:p-24 text-center border-primary/20 overflow-hidden relative">
-                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 pointer-events-none" />
-                 <h2 className="text-4xl md:text-6xl font-headline font-bold mb-8 relative z-10">Ready to transform <br/>your creative strategy?</h2>
-                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12 relative z-10">
-                   Join top performance teams using AdSight to audit their marketing assets in seconds.
+            {/* Final CTA */}
+            <section className="py-32 text-center relative overflow-hidden">
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] glow-blue opacity-40 pointer-events-none" />
+               <div className="container relative z-10 mx-auto px-6">
+                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold mb-8 max-w-4xl mx-auto leading-[1.15]">
+                   Your next high-performing ad starts with better feedback.
+                 </h2>
+                 <p className="text-muted-foreground max-w-xl mx-auto mb-10 text-sm leading-relaxed">
+                   Upload your creative and let AdSight reveal what works and what could perform better.
                  </p>
-                 <button className="relative z-10 h-16 px-12 rounded-full bg-white text-black font-headline font-bold text-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                   Start Auditing Now
-                 </button>
+                 <Button 
+                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                   className="bg-[#3b82f6] hover:bg-[#2563eb] h-12 px-10 rounded-md font-bold text-sm uppercase tracking-widest"
+                 >
+                   Analyze My Ad
+                 </Button>
                </div>
             </section>
           </>
         )}
 
         {state === "processing" && (
-          <div className="pt-32 pb-24">
+          <div className="pt-32">
             <ProcessingView />
           </div>
         )}
 
         {state === "results" && analysis && (
-          <div className="pt-32 pb-24">
+          <div className="pt-32 pb-24 px-6 container mx-auto">
             <ResultsView 
               analysis={analysis} 
               imageUrl={previewUrl} 
