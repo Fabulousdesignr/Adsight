@@ -22,17 +22,19 @@ export type AnalyzeAdCreativeInput = z.infer<typeof AnalyzeAdCreativeInputSchema
 const AnalyzeAdCreativeOutputSchema = z.object({
   overallAssessment: z
     .string()
-    .describe('A concise overall assessment of the advertisement creative.'),
+    .describe('A short, expert summary of whether the ad works or not.'),
   whatAdIsSaying: z
     .string()
-    .describe('A description of the main message or communication of the advertisement.'),
+    .describe('A simple explanation of the main message the ad is trying to get across.'),
   whoMayAppealTo: z
     .string()
-    .describe('An identification of the likely target audience for this advertisement.'),
-  whatWorksWell: z.string().describe('The strengths and effective elements of the advertisement.'),
+    .describe('A clear description of the kind of people who would be interested in this ad.'),
+  whatWorksWell: z
+    .string()
+    .describe('The best parts of the ad that are doing a good job.'),
   whatCouldImprove: z
     .string()
-    .describe('Suggestions for areas where the advertisement could be improved.'),
+    .describe('Practical, easy-to-fix things that would make the ad more effective.'),
 });
 export type AnalyzeAdCreativeOutput = z.infer<typeof AnalyzeAdCreativeOutputSchema>;
 
@@ -46,16 +48,23 @@ const analyzeAdCreativePrompt = ai.definePrompt({
   name: 'analyzeAdCreativePrompt',
   input: { schema: AnalyzeAdCreativeInputSchema },
   output: { schema: AnalyzeAdCreativeOutputSchema },
-  prompt: `You are an expert marketing analyst specializing in advertisement creative review. Your task is to analyze the provided ad creative and offer comprehensive feedback.
+  prompt: `You are an experienced marketing strategist reviewing an advertisement for a client. 
 
-Focus on these criteria:
-1. **Overall Assessment**: A concise summary of the creative's effectiveness.
-2. **What This Ad Is Saying**: The core message and value proposition.
-3. **Who It May Appeal To**: Detailed target audience profile based on visual and textual signals.
-4. **What Works Well**: Visual hierarchy, copy clarity, and design strengths.
-5. **What Could Improve**: Specific, actionable suggestions for better engagement or conversion.
+Your goal is to explain how the ad is performing using simple, everyday language. The person you are talking to is a business owner who doesn't know marketing jargon.
 
-Analyze the advertisement objectively and provide high-level professional insights.
+Follow these rules:
+1. Use short, clear sentences.
+2. Be practical and helpful.
+3. Absolutely no marketing jargon (don't use words like "hierarchy," "value proposition," "conversion," or "engagement").
+4. No corporate or academic language.
+5. Sound like a confident expert giving friendly advice over coffee.
+
+Provide your feedback in these sections:
+- **Overall Assessment**: 1-2 sentences summarizing if the ad is strong or needs work.
+- **What This Ad Is Saying**: 2-4 sentences explaining the main point.
+- **Who It May Appeal To**: 2-4 sentences describing the target customer.
+- **What Works Well**: 2-4 sentences on the specific parts that look good or work well.
+- **What Could Improve**: 2-4 sentences with simple, practical tips to make it better.
 
 Advertisement Image: {{media url=photoDataUri}}`,
 });
