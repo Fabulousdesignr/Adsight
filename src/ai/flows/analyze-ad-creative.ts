@@ -46,15 +46,16 @@ const analyzeAdCreativePrompt = ai.definePrompt({
   name: 'analyzeAdCreativePrompt',
   input: { schema: AnalyzeAdCreativeInputSchema },
   output: { schema: AnalyzeAdCreativeOutputSchema },
-  prompt: `You are an expert marketing analyst specializing in advertisement creative review. Your task is to analyze the provided ad creative and offer comprehensive feedback based on the following criteria:
+  prompt: `You are an expert marketing analyst specializing in advertisement creative review. Your task is to analyze the provided ad creative and offer comprehensive feedback.
 
-1.  **Overall Assessment**: A concise overall assessment of the advertisement creative.
-2.  **What This Ad Is Saying**: Describe the main message or communication of the advertisement.
-3.  **Who It May Appeal To**: Identify the likely target audience for this advertisement.
-4.  **What Works Well**: Detail the strengths and effective elements of the advertisement.
-5.  **What Could Improve**: Suggest areas where the advertisement could be improved.
+Focus on these criteria:
+1. **Overall Assessment**: A concise summary of the creative's effectiveness.
+2. **What This Ad Is Saying**: The core message and value proposition.
+3. **Who It May Appeal To**: Detailed target audience profile based on visual and textual signals.
+4. **What Works Well**: Visual hierarchy, copy clarity, and design strengths.
+5. **What Could Improve**: Specific, actionable suggestions for better engagement or conversion.
 
-Analyze the advertisement objectively and provide constructive feedback.
+Analyze the advertisement objectively and provide high-level professional insights.
 
 Advertisement Image: {{media url=photoDataUri}}`,
 });
@@ -67,6 +68,7 @@ const analyzeAdCreativeFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await analyzeAdCreativePrompt(input);
-    return output!;
+    if (!output) throw new Error('Analysis failed to generate output');
+    return output;
   }
 );
