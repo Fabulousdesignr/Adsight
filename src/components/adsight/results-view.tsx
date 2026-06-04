@@ -46,11 +46,11 @@ Opportunities: ${analysis.whatCouldImprove}
   return (
     <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Header Section */}
-      <div className="mb-10">
+      <div className="mb-10 text-center md:text-left">
         <div className="inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-6">
           AI Analysis Complete
         </div>
-        <h1 className="text-5xl font-headline font-bold mb-3 tracking-tight">Your Ad Analysis</h1>
+        <h1 className="text-4xl md:text-5xl font-headline font-bold mb-3 tracking-tight">Your Ad Analysis</h1>
         <p className="text-muted-foreground text-sm opacity-80">Here's what AdSight discovered about your creative.</p>
       </div>
 
@@ -58,7 +58,7 @@ Opportunities: ${analysis.whatCouldImprove}
       <div className="mb-8 p-8 rounded-xl border border-[#3b82f6]/20 bg-[#0c0c14] relative overflow-hidden group">
         <div className="absolute top-0 left-0 w-1 h-full bg-[#3b82f6]" />
         <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#3b82f6] mb-4">Overall Assessment</h3>
-        <p className="text-base text-white/90 leading-relaxed max-w-4xl italic">
+        <p className="text-lg text-white/90 leading-relaxed max-w-4xl italic font-medium">
           "{analysis.overallAssessment}"
         </p>
       </div>
