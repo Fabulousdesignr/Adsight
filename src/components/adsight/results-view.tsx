@@ -1,12 +1,21 @@
-
 "use client"
 
 import React from "react"
-import { CheckCircle2, AlertCircle, Users, MessageSquare, Star, Copy, Share2, FileDown, ArrowLeft } from "lucide-react"
+import { 
+  MessageSquare, 
+  Users, 
+  Eye, 
+  Lightbulb, 
+  Copy, 
+  Share2, 
+  FileDown, 
+  ArrowRight,
+  Maximize2
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AnalyzeAdCreativeOutput } from "@/ai/flows/analyze-ad-creative"
 import { toast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 
 interface ResultsViewProps {
   analysis: AnalyzeAdCreativeOutput
@@ -32,154 +41,142 @@ Opportunities: ${analysis.whatCouldImprove}
     })
   }
 
-  const exportReport = () => {
-    toast({
-      title: "Exporting Report",
-      description: "Generating PDF report... This will be ready shortly.",
-    })
-  }
-
-  const shareReport = () => {
-    toast({
-      title: "Link Generated",
-      description: "Analysis link copied to clipboard for sharing.",
-    })
-  }
-
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-8">
-        <div>
-          <Button variant="ghost" onClick={onReset} className="mb-4 -ml-4 hover:bg-white/5 text-muted-foreground">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Analyze Another Ad
-          </Button>
-          <h1 className="text-4xl font-headline font-bold text-gradient">Creative Intelligence Report</h1>
-          <p className="text-muted-foreground mt-2">Comprehensive visual and messaging performance audit.</p>
+    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Header Section */}
+      <div className="mb-10">
+        <div className="inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-6">
+          AI Analysis Complete
         </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <Button variant="outline" size="sm" onClick={copyToClipboard} className="glass-card hover:bg-white/10">
-            <Copy className="mr-2 h-4 w-4" /> Copy Analysis
-          </Button>
-          <Button variant="outline" size="sm" onClick={exportReport} className="glass-card hover:bg-white/10">
-            <FileDown className="mr-2 h-4 w-4" /> Export Report
-          </Button>
-          <Button size="sm" onClick={shareReport} className="bg-primary hover:bg-primary/80">
-            <Share2 className="mr-2 h-4 w-4" /> Share Report
-          </Button>
+        <h1 className="text-5xl font-headline font-bold mb-3 tracking-tight">Your Ad Analysis</h1>
+        <p className="text-muted-foreground text-sm opacity-80">Here's what AdSight discovered about your creative.</p>
+      </div>
+
+      {/* Overall Assessment Panel */}
+      <div className="mb-8 p-8 rounded-xl border border-[#3b82f6]/20 bg-[#0c0c14] relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-1 h-full bg-[#3b82f6]" />
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#3b82f6] mb-4">Overall Assessment</h3>
+        <p className="text-base text-white/90 leading-relaxed max-w-4xl italic">
+          "{analysis.overallAssessment}"
+        </p>
+      </div>
+
+      {/* Metadata Chips */}
+      <div className="flex flex-wrap gap-3 mb-12">
+        <MetadataChip label="Ad Type" value="Social Media Advertisement" />
+        <MetadataChip label="Industry" value="Food & Beverage" />
+        <MetadataChip label="Analysis Time" value="3.2 Seconds" />
+        <MetadataChip label="Review Status" value="Complete" />
+      </div>
+
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
+        {/* Left Column: Creative Preview */}
+        <div className="lg:col-span-5">
+          <div className="bg-[#0c0c14] border border-white/5 rounded-xl overflow-hidden shadow-2xl">
+            <div className="p-4 border-b border-white/5 flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">Creative Asset Preview</span>
+              <Maximize2 className="h-3 w-3 text-white/20" />
+            </div>
+            <div className="aspect-[4/5] relative bg-black">
+              <img src={imageUrl} alt="Uploaded Ad" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-4 flex items-center justify-between bg-[#08080c]">
+              <div className="flex items-center gap-2 text-[10px] text-white/20">
+                <Copy className="h-3 w-3" />
+                <span>flamestack_ad_v1.jpg</span>
+              </div>
+              <span className="text-[10px] text-white/10">flamestack_ad_v1.jpg</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Insights Grid */}
+        <div className="lg:col-span-7 flex flex-col gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <InsightCard 
+              icon={<MessageSquare className="text-white/40" />} 
+              title="What This Ad Is Saying" 
+              content={analysis.whatAdIsSaying} 
+            />
+            <InsightCard 
+              icon={<Users className="text-white/40" />} 
+              title="Who It May Appeal To" 
+              content={analysis.whoMayAppealTo} 
+            />
+            <InsightCard 
+              icon={<Eye className="text-white/40" />} 
+              title="What Works Well" 
+              content={analysis.whatWorksWell} 
+            />
+            <InsightCard 
+              icon={<Lightbulb className="text-white/40" />} 
+              title="What Could Improve" 
+              content={analysis.whatCouldImprove} 
+            />
+          </div>
+
+          {/* Strategic Actions Panel */}
+          <div className="mt-2 p-8 bg-[#0c0c14] border border-white/5 rounded-xl">
+            <div className="mb-6">
+              <h4 className="font-headline font-bold text-base mb-1">Strategic Actions</h4>
+              <p className="text-xs text-muted-foreground">Process these insights into your workflow</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <ActionButton icon={<Copy className="h-3 w-3" />} label="Copy Analysis" onClick={copyToClipboard} />
+              <ActionButton icon={<FileDown className="h-3 w-3" />} label="Export Report" />
+              <ActionButton icon={<Share2 className="h-3 w-3" />} label="Share" />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Image Preview & Overall Assessment */}
-        <div className="lg:col-span-5 space-y-6">
-          <Card className="glass-card overflow-hidden border-primary/20">
-            <CardHeader className="bg-primary/5 border-b border-white/5">
-              <CardTitle className="text-sm font-medium uppercase tracking-widest text-primary flex items-center">
-                <Star className="mr-2 h-4 w-4" /> Original Creative
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <div className="aspect-[4/5] relative">
-                <img src={imageUrl} alt="Uploaded Ad" className="w-full h-full object-cover" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card border-secondary/20 bg-secondary/5">
-            <CardHeader>
-              <CardTitle className="text-lg font-headline flex items-center text-secondary">
-                <Zap className="mr-2 h-5 w-5" /> Overall Assessment
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg leading-relaxed">{analysis.overallAssessment}</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Insight Insights Matrix */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="glass-card bg-white/5">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium uppercase tracking-widest text-indigo-300 flex items-center">
-                  <MessageSquare className="mr-2 h-4 w-4" /> Core Messaging
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm leading-relaxed text-slate-300">{analysis.whatAdIsSaying}</p>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-card bg-white/5">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium uppercase tracking-widest text-violet-300 flex items-center">
-                  <Users className="mr-2 h-4 w-4" /> Target Audience
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm leading-relaxed text-slate-300">{analysis.whoMayAppealTo}</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="glass-card border-green-500/20 bg-green-500/5">
-            <CardHeader>
-              <CardTitle className="text-lg font-headline flex items-center text-green-400">
-                <CheckCircle2 className="mr-2 h-5 w-5" /> Creative Strengths
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-invert prose-sm max-w-none">
-                <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{analysis.whatWorksWell}</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card border-amber-500/20 bg-amber-500/5">
-            <CardHeader>
-              <CardTitle className="text-lg font-headline flex items-center text-amber-400">
-                <AlertCircle className="mr-2 h-5 w-5" /> Optimization Opportunities
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-invert prose-sm max-w-none">
-                <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{analysis.whatCouldImprove}</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="p-6 glass-card border-primary/10 rounded-2xl flex items-center gap-4 bg-gradient-to-r from-primary/10 to-transparent">
-             <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-                <Zap className="text-primary h-5 w-5" />
-             </div>
-             <div>
-                <h4 className="font-headline text-sm font-semibold">AI Auditor Suggestion</h4>
-                <p className="text-xs text-muted-foreground">Try A/B testing a version with higher contrast on the main CTA button.</p>
-             </div>
-          </div>
-        </div>
+      {/* Bottom CTA */}
+      <div className="py-20 text-center border-t border-white/5">
+        <h2 className="text-3xl font-headline font-bold mb-8">Ready for the next creative?</h2>
+        <Button 
+          onClick={onReset}
+          className="bg-[#3b82f6] hover:bg-[#2563eb] text-white h-12 px-8 rounded-md font-bold text-sm tracking-wide group"
+        >
+          Analyze Another Ad <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Button>
       </div>
     </div>
   )
 }
 
-function Zap(props: any) {
+function MetadataChip({ label, value }: { label: string, value: string }) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <div className="px-4 py-2 rounded-full border border-white/5 bg-white/5 flex items-center gap-2">
+      <span className="text-[10px] text-white/40 font-medium uppercase tracking-wider">{label}:</span>
+      <span className="text-[10px] text-white/80 font-bold uppercase tracking-wider">{value}</span>
+    </div>
+  )
+}
+
+function InsightCard({ icon, title, content }: { icon: React.ReactNode, title: string, content: string }) {
+  return (
+    <div className="p-6 bg-[#0c0c14] border border-white/5 rounded-xl border-l-2 border-l-[#3b82f6]/30 flex flex-col gap-4">
+      <div className="flex items-center gap-3">
+        <div className="p-2 rounded bg-white/5 border border-white/5">
+          {React.cloneElement(icon as React.ReactElement, { size: 14 })}
+        </div>
+        <h4 className="text-[11px] font-bold uppercase tracking-widest text-white/80">{title}</h4>
+      </div>
+      <p className="text-xs text-muted-foreground leading-relaxed">{content}</p>
+    </div>
+  )
+}
+
+function ActionButton({ icon, label, onClick }: { icon: React.ReactNode, label: string, onClick?: () => void }) {
+  return (
+    <Button 
+      variant="outline" 
+      size="sm" 
+      onClick={onClick}
+      className="bg-white/5 border-white/10 hover:bg-white/10 text-[10px] font-bold uppercase tracking-widest h-9 px-5"
     >
-      <path d="M4 14.71 13 4v8h7L11 20v-8H4z" />
-    </svg>
+      {icon} <span className="ml-2">{label}</span>
+    </Button>
   )
 }
