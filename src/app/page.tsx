@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useRef } from "react"
 import { LandingHero } from "@/components/adsight/landing-hero"
 import { HowItWorks } from "@/components/adsight/how-it-works"
 import { ProcessingView } from "@/components/adsight/processing-view"
@@ -18,6 +18,9 @@ export default function AdSightApp() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string>("")
   const [analysis, setAnalysis] = useState<AnalyzeAdCreativeOutput | null>(null)
+  const [isPulsing, setIsPulsing] = useState(false)
+  
+  const uploadSectionRef = useRef<HTMLDivElement>(null)
 
   const handleFileSelect = useCallback((file: File) => {
     setSelectedFile(file)
@@ -64,6 +67,14 @@ export default function AdSightApp() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const handleGetStarted = () => {
+    if (uploadSectionRef.current) {
+      uploadSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      setIsPulsing(true)
+      setTimeout(() => setIsPulsing(false), 3000)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#040408] text-foreground font-body">
       {/* Navigation */}
@@ -83,7 +94,11 @@ export default function AdSightApp() {
           </nav>
           
           <div className="flex items-center gap-4">
-            <Button size="sm" className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 rounded-md font-medium text-xs uppercase tracking-wider h-9">
+            <Button 
+              size="sm" 
+              onClick={handleGetStarted}
+              className="bg-[#3b82f6] hover:bg-[#2563eb] text-white px-6 rounded-md font-medium text-xs uppercase tracking-wider h-9"
+            >
               Get Started
             </Button>
           </div>
@@ -98,6 +113,8 @@ export default function AdSightApp() {
               onAnalyze={startAnalysis}
               selectedFile={selectedFile}
               onClear={handleClear}
+              isPulsing={isPulsing}
+              uploadRef={uploadSectionRef}
             />
             <HowItWorks />
             
@@ -208,7 +225,7 @@ export default function AdSightApp() {
                    Upload your creative and let AdSight reveal what works and what could perform better.
                  </p>
                  <Button 
-                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                   onClick={handleGetStarted}
                    className="bg-[#3b82f6] hover:bg-[#2563eb] h-12 px-10 rounded-md font-bold text-sm uppercase tracking-widest"
                  >
                    Analyze My Ad

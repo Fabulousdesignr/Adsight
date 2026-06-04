@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useCallback } from "react"
-import { Upload, X, ImagePlus } from "lucide-react"
+import { X, ImagePlus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -9,9 +9,10 @@ interface UploadZoneProps {
   onFileSelect: (file: File) => void
   onClear: () => void
   selectedFile: File | null
+  isPulsing?: boolean
 }
 
-export function UploadZone({ onFileSelect, onClear, selectedFile }: UploadZoneProps) {
+export function UploadZone({ onFileSelect, onClear, selectedFile, isPulsing }: UploadZoneProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
 
@@ -59,7 +60,12 @@ export function UploadZone({ onFileSelect, onClear, selectedFile }: UploadZonePr
   return (
     <div className="relative group max-w-4xl mx-auto">
       {/* Intense Blue Outer Glow */}
-      <div className="absolute -inset-1.5 bg-[#3b82f6]/30 blur-2xl rounded-[2rem] opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div 
+        className={cn(
+          "absolute -inset-1.5 bg-[#3b82f6]/30 blur-2xl rounded-[2rem] transition-all duration-500 pointer-events-none",
+          isPulsing ? "opacity-100 scale-105 animate-pulse-glow" : "opacity-60 group-hover:opacity-100"
+        )} 
+      />
       
       <div
         onDragOver={handleDragOver}
@@ -71,7 +77,8 @@ export function UploadZone({ onFileSelect, onClear, selectedFile }: UploadZonePr
           isDragging 
             ? "border-[#3b82f6] bg-[#3b82f6]/5 scale-[1.005]" 
             : "border-white/10 bg-[#0c0c14]",
-          !selectedFile && "cursor-pointer hover:border-white/20"
+          !selectedFile && "cursor-pointer hover:border-white/20",
+          isPulsing && "scale-[1.02] border-[#3b82f6]/50"
         )}
       >
         <input

@@ -10,9 +10,18 @@ interface LandingHeroProps {
   onAnalyze: () => void
   selectedFile: File | null
   onClear: () => void
+  isPulsing?: boolean
+  uploadRef?: React.RefObject<HTMLDivElement>
 }
 
-export function LandingHero({ onFileSelect, onAnalyze, selectedFile, onClear }: LandingHeroProps) {
+export function LandingHero({ 
+  onFileSelect, 
+  onAnalyze, 
+  selectedFile, 
+  onClear, 
+  isPulsing,
+  uploadRef 
+}: LandingHeroProps) {
   return (
     <div className="relative pt-40 pb-20 overflow-hidden">
       {/* Background Glow */}
@@ -34,12 +43,6 @@ export function LandingHero({ onFileSelect, onAnalyze, selectedFile, onClear }: 
 
         <div className="flex flex-wrap justify-center gap-4 mb-20">
           <Button 
-            onClick={selectedFile ? onAnalyze : undefined}
-            className="bg-[#3b82f6] hover:bg-[#2563eb] h-12 px-10 rounded-md font-bold text-sm uppercase tracking-widest transition-all"
-          >
-            Analyze My Ad
-          </Button>
-          <Button 
             variant="outline"
             className="border-white/10 bg-white/5 hover:bg-white/10 h-12 px-10 rounded-md font-bold text-sm uppercase tracking-widest transition-all group"
           >
@@ -47,12 +50,24 @@ export function LandingHero({ onFileSelect, onAnalyze, selectedFile, onClear }: 
           </Button>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto" ref={uploadRef}>
           <UploadZone 
             onFileSelect={onFileSelect} 
             selectedFile={selectedFile} 
             onClear={onClear} 
+            isPulsing={isPulsing}
           />
+          
+          {selectedFile && (
+            <div className="mt-12 animate-in fade-in slide-in-from-top-4 duration-500 flex justify-center">
+              <Button 
+                onClick={onAnalyze}
+                className="bg-[#3b82f6] hover:bg-[#2563eb] h-14 px-12 rounded-md font-bold text-base uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+              >
+                Analyze My Ad
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
