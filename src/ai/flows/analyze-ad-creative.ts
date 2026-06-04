@@ -20,6 +20,8 @@ const AnalyzeAdCreativeInputSchema = z.object({
 export type AnalyzeAdCreativeInput = z.infer<typeof AnalyzeAdCreativeInputSchema>;
 
 const AnalyzeAdCreativeOutputSchema = z.object({
+  adType: z.string().describe('The identified type of advertisement (e.g., Social Media Advertisement, Event Flyer, etc.).'),
+  industry: z.string().describe('The identified industry (e.g., Food & Beverage, Fashion & Apparel, etc.).'),
   overallAssessment: z
     .string()
     .describe('A short, expert summary of whether the ad works or not.'),
@@ -53,13 +55,17 @@ const analyzeAdCreativePrompt = ai.definePrompt({
 Your goal is to explain how the ad is performing using simple, everyday language. The person you are talking to is a business owner who doesn't know marketing jargon.
 
 Follow these rules:
-1. Use short, clear sentences.
-2. Be practical and helpful.
-3. Absolutely no marketing jargon (don't use words like "hierarchy," "value proposition," "conversion," or "engagement").
-4. No corporate or academic language.
-5. Sound like a confident expert giving friendly advice over coffee.
+1. Identify the **Ad Type** (e.g., Social Media Advertisement, Event Flyer, Promotional Flyer, Banner Advertisement, Product Advertisement, Brand Awareness Advertisement, Digital Advertisement, Recruitment Advertisement).
+2. Identify the **Industry** (e.g., Food & Beverage, Financial Services, Fashion & Apparel, Real Estate, Healthcare, Technology, Education, Entertainment, Travel & Hospitality, Retail).
+3. Use short, clear sentences.
+4. Be practical and helpful.
+5. Absolutely no marketing jargon (don't use words like "hierarchy," "value proposition," "conversion," or "engagement").
+6. No corporate or academic language.
+7. Sound like a confident expert giving friendly advice over coffee.
 
 Provide your feedback in these sections:
+- **Ad Type**: Determine the specific format.
+- **Industry**: Determine the primary business sector.
 - **Overall Assessment**: 1-2 sentences summarizing if the ad is strong or needs work.
 - **What This Ad Is Saying**: 2-4 sentences explaining the main point.
 - **Who It May Appeal To**: 2-4 sentences describing the target customer.

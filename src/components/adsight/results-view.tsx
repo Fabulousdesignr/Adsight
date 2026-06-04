@@ -27,6 +27,8 @@ export function ResultsView({ analysis, imageUrl, onReset }: ResultsViewProps) {
   const copyToClipboard = () => {
     const text = `
 AdSight Analysis
+Ad Type: ${analysis.adType}
+Industry: ${analysis.industry}
 Overall Assessment: ${analysis.overallAssessment}
 Messaging: ${analysis.whatAdIsSaying}
 Target Audience: ${analysis.whoMayAppealTo}
@@ -63,8 +65,8 @@ Opportunities: ${analysis.whatCouldImprove}
 
       {/* Metadata Chips */}
       <div className="flex flex-wrap gap-3 mb-12">
-        <MetadataChip label="Ad Type" value="Social Media Advertisement" />
-        <MetadataChip label="Industry" value="Food & Beverage" />
+        <MetadataChip label="Ad Type" value={analysis.adType} />
+        <MetadataChip label="Industry" value={analysis.industry} />
         <MetadataChip label="Analysis Time" value="3.2 Seconds" />
         <MetadataChip label="Review Status" value="Complete" />
       </div>
@@ -84,9 +86,8 @@ Opportunities: ${analysis.whatCouldImprove}
             <div className="p-4 flex items-center justify-between bg-[#08080c]">
               <div className="flex items-center gap-2 text-[10px] text-white/20">
                 <Copy className="h-3 w-3" />
-                <span>flamestack_ad_v1.jpg</span>
+                <span>creative_audit_asset.jpg</span>
               </div>
-              <span className="text-[10px] text-white/10">flamestack_ad_v1.jpg</span>
             </div>
           </div>
         </div>
