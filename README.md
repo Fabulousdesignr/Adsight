@@ -1,217 +1,228 @@
-# Adsight
+# AdSight
 
-AI-powered job intelligence platform that analyzes and compares job postings to help job seekers identify patterns, understand market demand, and make smarter career decisions.
+AdSight is an AI-powered creative review platform that helps businesses, marketers, and creators understand whether their advertisements communicate clearly and convert effectively.
+
+Upload a flyer, social media ad, poster, or promotional creative and AdSight provides instant, actionable feedback on messaging, audience fit, and overall effectiveness.
+
+---
+
+## Live Demo
+
+🔗 https://adsight-murex.vercel.app/
 
 ---
 
 ## Overview
 
-Adsight was built to solve a frustrating problem during job hunting.
+Creating ads is easy.
 
-While applying for multiple roles, I noticed something difficult: every job description looked different, yet many required similar underlying skills and expectations.
+Knowing whether those ads actually communicate effectively is much harder.
 
-Manually comparing dozens of listings became overwhelming.
+Many business owners and creators publish advertisements without fully understanding how their audience perceives them.
 
-Adsight simplifies this process.
+AdSight acts like an AI marketing strategist by reviewing advertisements and translating complex creative feedback into simple, practical insights.
 
-Instead of reading job posts one by one, users can input multiple job descriptions and receive structured insights showing common requirements, skill gaps, trends, and strategic recommendations.
-
-The goal is simple:
-
-Help job seekers apply smarter, not just more.
+Instead of relying on vague analytics or complicated marketing jargon, AdSight focuses on actionable feedback users can immediately understand and apply.
 
 ---
 
-## Problem
+## Who AdSight Is For
 
-Most job seekers struggle with:
+AdSight is designed for:
 
-- Applying blindly to roles
-- Not knowing what recruiters consistently want
-- Missing recurring skill requirements
-- Wasting time on poor-fit applications
-- Feeling overwhelmed by inconsistent job descriptions
+- Small business owners  
+- Social media marketers  
+- Content creators  
+- Freelancers  
+- Startup teams  
+- Marketing agencies  
 
-Without clear comparison, it becomes difficult to know:
-
-- Which roles fit best
-- Which skills matter most
-- What to improve next
+Anyone creating visual advertisements can use AdSight to improve communication and campaign quality.
 
 ---
 
-## Solution
+## Features
 
-Adsight uses AI to analyze multiple job listings and uncover hidden patterns.
+### AI Advertisement Analysis
+Upload any advertisement and get instant AI-powered feedback.
 
-Users paste multiple job descriptions.
+### Overall Assessment
+Receive a quick summary of the creative’s overall effectiveness.
 
-The system then compares them and returns insights such as:
+### Message Detection
+Understand what your advertisement is actually communicating.
 
-- Most requested skills
-- Common tools and technologies
-- Frequently repeated keywords
-- Role similarity
-- Skill gaps
-- Application recommendations
+### Audience Identification
+See who your advertisement is most likely appealing to.
 
-This helps users make better application decisions.
+### Strength Analysis
+Discover what works well in the creative.
 
----
+### Improvement Suggestions
+Receive practical recommendations for stronger performance.
 
-## Core Features
+### Smart Classification
+AdSight automatically identifies:
 
-### Job Comparison
-Compare multiple job descriptions side by side.
-
-Detect:
-- Similarities
-- Differences
-- Priority requirements
+- Ad Type  
+- Industry  
+- Marketing Intent  
 
 ---
 
-### Skill Demand Analysis
-Identify the most frequently requested skills across selected roles.
+## Supported Uploads
 
-Examples:
-- Figma
-- Product Thinking
-- User Research
-- SQL
-- AI Tools
+AdSight currently supports:
 
----
-
-### Keyword Intelligence
-Extract ATS-relevant keywords from job listings.
-
-Helps users optimize:
-- Resume
-- Portfolio
-- Cover letters
-- LinkedIn profile
+- JPG  
+- PNG  
+- Screenshots  
+- Flyers  
+- Social Media Creatives  
+- Promotional Posters  
 
 ---
 
-### Gap Detection
-Highlights missing or weak skill areas.
+## Product Flow
 
-Answers questions like:
+```text
+Landing Page
+↓
+Upload Advertisement
+↓
+AI Processing
+↓
+Results Dashboard
+```
 
-- What am I missing?
-- Why am I not a strong fit?
-- What should I learn next?
-
----
-
-### Smart Recommendations
-Provides strategic next steps.
-
-Examples:
-- Apply now
-- Upskill first
-- Improve portfolio
-- Tailor resume differently
-
----
-
-## Tech Stack
-
-### Frontend
-- React
-- TypeScript
-- Vite
-
-### Backend
-- Node.js
-- Serverless Functions
-
-### AI
-- Google Gemini API
-
-### Deployment
-- Vercel
-- GitHub
+1. Upload advertisement  
+2. AI analyzes the creative  
+3. Structured feedback is generated  
+4. Copy, export, or share the report  
 
 ---
 
 ## Architecture
 
 ```text
-Input Job Descriptions
+User Uploads Creative
 ↓
-Text Processing
+Image Processing
 ↓
-Extract Skills & Keywords
+Gemini Vision Analysis
 ↓
-Compare Role Requirements
+Extract Messaging & Signals
 ↓
-Gemini AI Analysis
+Generate Structured Feedback
 ↓
-Generate Insights:
-- Skill Trends
-- Job Match Patterns
-- Recommendations
+Display Results Dashboard
 ```
 
 ---
 
-## Challenges I Faced
+## Tech Stack
 
-Building Adsight taught me that job descriptions are messy data.
+### Frontend
+- Next.js  
+- TypeScript  
+- Tailwind CSS  
 
-Major challenges included:
+### AI
+- Gemini API  
+- Genkit  
 
-- Handling inconsistent job post formats
-- Extracting useful keywords
-- Comparing multiple roles accurately
-- Preventing generic AI outputs
-- Structuring actionable insights
+### Design
+- Figma  
 
-One major challenge was making AI outputs practical rather than vague.
+### Deployment
+- Vercel  
 
-The product had to generate insights users could actually act on.
+---
+
+## Screens
+
+### Landing Page
+Users learn about AdSight and upload an advertisement.
+
+### Processing Screen
+AI analyzes the uploaded creative.
+
+### Results Screen
+AdSight returns structured feedback including:
+
+- Overall Assessment  
+- What This Ad Is Saying  
+- Who It May Appeal To  
+- What Works Well  
+- What Could Improve  
+
+---
+
+## Why AdSight?
+
+Most business owners do not struggle with creating ads.
+
+They struggle with knowing whether those ads actually make sense to customers.
+
+AdSight bridges that gap by acting as an AI-powered creative reviewer, helping users understand if their advertisement communicates clearly and what should be improved.
+
+The goal is simple:
+
+Help users quickly understand whether their ad works and how to make it better.
+
+---
+
+## Challenges During Development
+
+Key challenges while building AdSight included:
+
+- Improving AI feedback quality  
+- Preventing generic AI responses  
+- Making analysis easy to understand  
+- Maintaining design quality during fast iteration  
+- Balancing speed of shipping with product quality  
+
+One major challenge was ensuring AI feedback felt specific and actionable rather than repetitive or vague.
 
 ---
 
 ## Lessons Learned
 
-Adsight strengthened my understanding of:
+Building AdSight reinforced several important lessons:
 
-- AI-assisted analysis workflows
-- Data structuring
-- Prompt engineering
-- Information prioritization
-- Product decision systems
+- Simpler products ship faster  
+- AI feedback quality matters more than visual complexity  
+- Prompt engineering is part of product design  
+- Shipping creates faster learning than endless iteration  
 
-It also deepened my belief that AI products are most valuable when they help users make better decisions.
+AdSight also taught me that AI products do not need extreme complexity to create value.
 
----
-
-## Why I Built This
-
-Adsight started from my personal job search.
-
-I was applying for design roles and wanted a better way to understand:
-
-- what companies truly wanted
-- where I matched
-- where I needed improvement
-
-Instead of guessing, I built a tool to reveal the patterns.
-
-That turned job hunting into something more strategic and less random.
+Sometimes the strongest products solve one narrow problem exceptionally well.
 
 ---
 
-## Live Demo
+## Future Improvements
 
-[Try Adsight](https://your-demo-link-here)
+Potential future features include:
+
+- PDF report export  
+- Saved analysis history  
+- Batch ad reviews  
+- Competitor comparison  
+- A/B creative testing  
+- Campaign recommendations  
 
 ---
 
 ## Creator
 
-Built by **Godwin (Fabulous Designer)**  
-Product Designer • AI Product Builder
+Built by **Godwin Okechukwu (Fabulous Designer)**  
+Product Designer • AI Product Builder  
+
+Portfolio: https://gocstudios.carrd.co/
+
+---
+
+## License
+
+MIT License
